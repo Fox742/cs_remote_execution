@@ -23,6 +23,7 @@
   </MetadataSources>
   <Metadata>
     <MetadataFile FileName="ExecutionService.xsd" MetadataType="Schema" ID="c9efc155-39bf-43d7-8548-b1a0803bdb7a" SourceId="1" SourceUrl="http://localhost:8000/ExecutionService?xsd=xsd0" />
+    <MetadataFile FileName="ExecutionService2.xsd" MetadataType="Schema" ID="da2178d6-ac27-480f-b2c4-d87963c3bc95" SourceId="1" SourceUrl="http://localhost:8000/ExecutionService?xsd=xsd2" />
     <MetadataFile FileName="ExecutionService.disco" MetadataType="Disco" ID="b3e50277-0b4d-44d5-9b3c-99357c264aaa" SourceId="1" SourceUrl="http://localhost:8000/ExecutionService?disco" />
     <MetadataFile FileName="ExecutionService.wsdl" MetadataType="Wsdl" ID="5e04a284-99e4-454b-8907-a51852f02258" SourceId="1" SourceUrl="http://localhost:8000/ExecutionService?wsdl" />
     <MetadataFile FileName="ExecutionService1.xsd" MetadataType="Schema" ID="7f8e01a2-c8e8-4fb4-9640-402e0140939d" SourceId="1" SourceUrl="http://localhost:8000/ExecutionService?xsd=xsd1" />

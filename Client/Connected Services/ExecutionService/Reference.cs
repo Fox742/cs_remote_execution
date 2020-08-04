@@ -9,17 +9,144 @@
 //------------------------------------------------------------------------------
 
 namespace Client.ExecutionService {
+    using System.Runtime.Serialization;
+    using System;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ExecutionResults", Namespace="http://schemas.datacontract.org/2004/07/Server")]
+    [System.SerializableAttribute()]
+    public partial class ExecutionResults : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompilationOutputField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool CompilationPassedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ExecutionPassedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ReturnCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RuntimeOutputField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SessionKeyField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompilationOutput {
+            get {
+                return this.CompilationOutputField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompilationOutputField, value) != true)) {
+                    this.CompilationOutputField = value;
+                    this.RaisePropertyChanged("CompilationOutput");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool CompilationPassed {
+            get {
+                return this.CompilationPassedField;
+            }
+            set {
+                if ((this.CompilationPassedField.Equals(value) != true)) {
+                    this.CompilationPassedField = value;
+                    this.RaisePropertyChanged("CompilationPassed");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ExecutionPassed {
+            get {
+                return this.ExecutionPassedField;
+            }
+            set {
+                if ((this.ExecutionPassedField.Equals(value) != true)) {
+                    this.ExecutionPassedField = value;
+                    this.RaisePropertyChanged("ExecutionPassed");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ReturnCode {
+            get {
+                return this.ReturnCodeField;
+            }
+            set {
+                if ((this.ReturnCodeField.Equals(value) != true)) {
+                    this.ReturnCodeField = value;
+                    this.RaisePropertyChanged("ReturnCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RuntimeOutput {
+            get {
+                return this.RuntimeOutputField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RuntimeOutputField, value) != true)) {
+                    this.RuntimeOutputField = value;
+                    this.RaisePropertyChanged("RuntimeOutput");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SessionKey {
+            get {
+                return this.SessionKeyField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SessionKeyField, value) != true)) {
+                    this.SessionKeyField = value;
+                    this.RaisePropertyChanged("SessionKey");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ExecutionService.iExecitionService")]
     public interface iExecitionService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/iExecitionService/Compile", ReplyAction="http://tempuri.org/iExecitionService/CompileResponse")]
-        string Compile(string programm);
+        Client.ExecutionService.ExecutionResults Compile(string programm);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/iExecitionService/Compile", ReplyAction="http://tempuri.org/iExecitionService/CompileResponse")]
-        System.Threading.Tasks.Task<string> CompileAsync(string programm);
+        System.Threading.Tasks.Task<Client.ExecutionService.ExecutionResults> CompileAsync(string programm);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -49,11 +176,11 @@ namespace Client.ExecutionService {
                 base(binding, remoteAddress) {
         }
         
-        public string Compile(string programm) {
+        public Client.ExecutionService.ExecutionResults Compile(string programm) {
             return base.Channel.Compile(programm);
         }
         
-        public System.Threading.Tasks.Task<string> CompileAsync(string programm) {
+        public System.Threading.Tasks.Task<Client.ExecutionService.ExecutionResults> CompileAsync(string programm) {
             return base.Channel.CompileAsync(programm);
         }
     }

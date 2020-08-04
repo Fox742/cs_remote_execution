@@ -72,11 +72,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Connected Services\ExecutionService\Client.ExecutionService.ExecutionResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\ExecutionService\ExecutionService.wsdl" />
     <None Include="Connected Services\ExecutionService\ExecutionService.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\ExecutionService\ExecutionService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ExecutionService\ExecutionService2.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">

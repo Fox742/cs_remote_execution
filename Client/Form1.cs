@@ -18,25 +18,10 @@ namespace Client
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
-            sendToServer();
-        }
-
-        private async void sendToServer()
-        {
-            label1.Text = await Task.Run(() => (new ExecutionService.iExecitionServiceClient().Compile("Hello")) );
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            ExecutionService.iExecitionServiceClient client = new ExecutionService.iExecitionServiceClient();
-            label2.Text = client.Compile("Hello");
+            ExecutionService.ExecutionResults results = new ExecutionService.iExecitionServiceClient().Compile(richTextBox1.Text);
+            richTextBox2.Text = "Compiled";
         }
     }
 }

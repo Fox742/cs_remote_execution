@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
+using System.ServiceModel.Description;
+using System.Runtime.Serialization;
 
 namespace Server
 {
@@ -11,6 +13,29 @@ namespace Server
     public interface iExecitionService
     {
             [OperationContract]
-            string Compile(string programm);
+            ExecutionResults Compile(string programm);
     }
+
+    [DataContract]
+    public class ExecutionResults
+    {
+        [DataMember]
+        public string CompilationOutput;
+
+        [DataMember]
+        public bool CompilationPassed;
+
+        [DataMember]
+        public bool ExecutionPassed;
+
+        [DataMember]
+        public int ReturnCode;
+
+        [DataMember]
+        public string RuntimeOutput;
+
+        [DataMember]
+        public string SessionKey;
+    }
+
 }
