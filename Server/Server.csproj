@@ -45,10 +45,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Compiler.cs" />
+    <Compile Include="Executor.cs" />
     <Compile Include="ExecutionService.cs" />
     <Compile Include="FileSystemInspector.cs" />
     <Compile Include="iExecitionService.cs" />
+    <Compile Include="iOperator.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="ProcessDriver.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerEngine.cs" />

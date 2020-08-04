@@ -8,31 +8,22 @@ using System.Diagnostics;
 
 namespace Server
 {
-    class Compiler
+    class Compiler:Operator
     {
         private static string textOfProgrammName = "ClientProgramm.cs";
         private static string exeName = "ClientProgramm.exe";
         private static string compilationNameLog = "CompilationLog.log";
-
-
-        private bool _wasCompilation = false;
+        
         private string _path;
         private string _fullPath;
-        private string _output = string.Empty;
 
-        public bool Success
+        private string _name = string.Empty;
+        
+        public string name
         {
             get
             {
-                return _wasCompilation;
-            }
-        }
-
-        public string Output
-        {
-            get
-            {
-                return _output;
+                return _name;
             }
         }
 
@@ -45,22 +36,19 @@ namespace Server
             File.WriteAllText(_path + Settings.delimiter + textOfProgrammName, programm);
 
             // Делаем компиляцию
-            System.Diagnostics.ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo( Settings.compilerPath,  textOfProgrammName);
-            procStartInfo.WorkingDirectory = _fullPath;
-            procStartInfo.RedirectStandardOutput = true;
-            procStartInfo.UseShellExecute = false;
-            procStartInfo.CreateNoWindow = true;
-            System.Diagnostics.Process proc = new System.Diagnostics.Process();
-            proc.StartInfo = procStartInfo;
-            proc.Start();
-            _output = proc.StandardOutput.ReadToEnd();
+            using (ProcessDriver pd = new ProcessDriver(Settings.compilerPath, _fullPath, textOfProgrammName))
+            {
+                pd.execute();
+                _output = pd.standardOutput;
+            }
 
-            // Записываем в compilation log логи окмпиляции
+            // Записываем в compilation log логи компиляции
             File.WriteAllText(_path + Settings.delimiter+compilationNameLog,_output);
 
             if (File.Exists(_path + Settings.delimiter + exeName))
             {
-                _wasCompilation = true;
+                _name = exeName;
+                _operationCompleted = true;
             }
         }
 

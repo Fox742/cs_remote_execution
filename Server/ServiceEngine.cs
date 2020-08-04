@@ -35,10 +35,19 @@ namespace Server
             string sessionPath = FileSystemInspector.getSessionPath(_sessionKey);
 
             Compiler _compiler = new Compiler(sessionPath,_program);
+            _compilationOutput = _compiler.Output;
             if (_compiler.Success)
             {
                 _compilationPassed = true;
-                _compilationOutput = _compiler.Output;
+
+                // Исполнение
+                Executor _executor = new Executor( sessionPath, _compiler.name );
+                _executionOutput = _executor.Output;
+                if (_executor.Success)
+                {
+                    _executionPassed = true;
+                }
+                
             }
         }
     }

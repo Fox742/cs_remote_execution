@@ -21,7 +21,7 @@ namespace Client
         private void button3_Click(object sender, EventArgs e)
         {
             ExecutionService.ExecutionResults results = new ExecutionService.iExecitionServiceClient().Compile(richTextBox1.Text);
-            richTextBox2.Text = "Compiled";
+            richTextBox2.Text = results.SessionKey;
         }
     }
 }
