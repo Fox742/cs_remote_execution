@@ -4,14 +4,15 @@ namespace Server
 {
     class BaseServiceEngine
     {
-        public virtual void Compile(
+        public virtual void CompileExecute(
             string _program,
             ref string _compilationOutput,
             ref bool _compilationPassed,
             ref bool _executionPassed,
             ref int _returnCode,
             ref string _executionOutput,
-            ref string _sessionKey
+            ref string _sessionKey,
+            ref Exception ServiceException
         )
         {
 
@@ -20,35 +21,57 @@ namespace Server
 
     class InstanceServiceEngine:BaseServiceEngine
     {
-        public override void Compile(
+        public override void CompileExecute(
             string _program,
             ref string _compilationOutput,
             ref bool _compilationPassed,
             ref bool _executionPassed,
             ref int _returnCode,
             ref string _executionOutput,
-            ref string _sessionKey
+            ref string _sessionKey,
+            ref Exception ServiceException
     )
         {
             // Генерация GUID-а
             _sessionKey = Guid.NewGuid().ToString();
-            string sessionPath = FileSystemInspector.getSessionPath(_sessionKey);
-
-            Compiler _compiler = new Compiler(sessionPath,_program);
-            _compilationOutput = _compiler.Output;
-            if (_compiler.Success)
+            Logger.WriteLine(DateTime.Now.ToString()+" "+_sessionKey+" << income");
+            try
             {
-                _compilationPassed = true;
-
-                // Исполнение
-                Executor _executor = new Executor( sessionPath, _compiler.name );
-                _executionOutput = _executor.Output;
-                if (_executor.Success)
+                string sessionPath = FileSystemInspector.getSessionPath(_sessionKey);
+                Compiler _compiler = new Compiler(sessionPath, _program);
+                _compilationOutput = _compiler.Output;
+                if (_compiler.Success)
                 {
-                    _executionPassed = true;
+                    Logger.WriteLine(DateTime.Now.ToString() + " " + _sessionKey + " compilation passed successfully" );
+                    _compilationPassed = true;
+
+                    // Исполнение
+                    Executor _executor = new Executor(sessionPath, _compiler.name);
+                    _executionOutput = _executor.Output;
+                    _returnCode = _executor.returnCode;
+                    if (_executor.Success)
+                    {
+                        Logger.WriteLine(DateTime.Now.ToString() + " " + _sessionKey + " execution passed successfully");
+                        _executionPassed = true;
+                    }
+                    else
+                    {
+                        Logger.WriteLine(DateTime.Now.ToString() + " " + _sessionKey + " execution failed");
+                    }
                 }
-                
+                else
+                {
+                    Logger.WriteLine(DateTime.Now.ToString() + " " + _sessionKey + " compilation failed");
+                }
+
             }
+            catch (System.Exception e)
+            {
+                Logger.WriteLine(DateTime.Now.ToString() + " " + _sessionKey + " Exception: "+e.ToString());
+                ServiceException = e;
+                return;
+            }
+            Logger.WriteLine(DateTime.Now.ToString() + " " + _sessionKey + " >> completed");
         }
     }
 
@@ -60,17 +83,18 @@ namespace Server
             _instance = new InstanceServiceEngine();
         }
 
-        public static void Compile(
+        public static void CompileExecute(
             string _program, 
             ref string _compilationOutput, 
             ref bool _compilationPassed, 
             ref bool _executionPassed, 
             ref int _returnCode, 
             ref string _executionOutput, 
-            ref string _sessionKey
+            ref string _sessionKey,
+            ref Exception ServiceException
         )
         {
-            _instance.Compile(_program, ref _compilationOutput, ref _compilationPassed, ref _executionPassed, ref _returnCode, ref _executionOutput, ref _sessionKey);
+            _instance.CompileExecute(_program, ref _compilationOutput, ref _compilationPassed, ref _executionPassed, ref _returnCode, ref _executionOutput, ref _sessionKey, ref ServiceException);
         }
     }
 }

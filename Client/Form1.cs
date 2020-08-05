@@ -9,19 +9,37 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 
+
 namespace Client
 {
     public partial class Form1 : Form
     {
+        private SynchronizationContext _synchronizationContext;
+        ClientEngine engine;
+
         public Form1()
         {
             InitializeComponent();
+            _synchronizationContext = WindowsFormsSynchronizationContext.Current;
+            engine = new ClientEngine(new WinFormsUIWrapper(this));
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            ExecutionService.ExecutionResults results = new ExecutionService.iExecitionServiceClient().Compile(richTextBox1.Text);
-            richTextBox2.Text = results.SessionKey;
+            engine.CompileExeciteService(textBox1.Text,textBox2.Text,richTextBox1.Text);
         }
+
+        public void addTextToOutput( string whatToAdd )
+        {
+            _synchronizationContext.Post(
+            (o) => richTextBox2.Text += whatToAdd, null);
+        }
+
+        public void clearOutput()
+        {
+            _synchronizationContext.Post(
+                (o) => richTextBox2.Text = "", null);
+        }
+
     }
 }

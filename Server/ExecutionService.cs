@@ -8,7 +8,7 @@ namespace Server
 {
     class ExecutionService:iExecitionService
     {
-        public ExecutionResults Compile(string programm)
+        public ExecutionResults CompileExecute(string programm)
         {
             ExecutionResults result = new ExecutionResults();
 
@@ -18,8 +18,9 @@ namespace Server
             int returnCode=-1;
             string executionOutput = "";
             string sessionKey = "";
+            Exception ServiceException = null;
 
-            ServiceEngine.Compile(programm, ref compilationOutput, ref compilationPassed, ref executionPassed, ref returnCode, ref executionOutput, ref sessionKey);
+            ServiceEngine.CompileExecute(programm, ref compilationOutput, ref compilationPassed, ref executionPassed, ref returnCode, ref executionOutput, ref sessionKey, ref ServiceException);
 
             result.CompilationOutput = compilationOutput;
             result.CompilationPassed = compilationPassed;
@@ -27,7 +28,11 @@ namespace Server
             result.ReturnCode = returnCode;
             result.RuntimeOutput = executionOutput;
             result.SessionKey = sessionKey;
-
+            result.exception = null;
+            if (ServiceException != null)
+            {
+                result.exception = new Exception( ServiceException.Message );
+            }
             return result;
         }
     }

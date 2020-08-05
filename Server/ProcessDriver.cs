@@ -10,6 +10,16 @@ namespace Server
     class ProcessDriver:IDisposable
     {
         private string _standardOutput = "";
+        private int _returnCode = -1;
+
+        public int returnCode
+        {
+            get
+            {
+                return _returnCode;
+            }
+        }
+
 
         public string standardOutput
         {
@@ -41,9 +51,10 @@ namespace Server
 
         public void execute()
         {
-                _process.Start();
-                _process.WaitForExit();
-                _standardOutput = _process.StandardOutput.ReadToEnd();
+            _process.Start();
+            _process.WaitForExit();
+            _standardOutput = _process.StandardOutput.ReadToEnd();
+            _returnCode = _process.ExitCode;
         }
 
         public void Dispose()

@@ -40,6 +40,9 @@ namespace Client.ExecutionService {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SessionKeyField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Exception exceptionField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -128,6 +131,19 @@ namespace Client.ExecutionService {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Exception exception {
+            get {
+                return this.exceptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.exceptionField, value) != true)) {
+                    this.exceptionField = value;
+                    this.RaisePropertyChanged("exception");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -142,11 +158,11 @@ namespace Client.ExecutionService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ExecutionService.iExecitionService")]
     public interface iExecitionService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/iExecitionService/Compile", ReplyAction="http://tempuri.org/iExecitionService/CompileResponse")]
-        Client.ExecutionService.ExecutionResults Compile(string programm);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/iExecitionService/CompileExecute", ReplyAction="http://tempuri.org/iExecitionService/CompileExecuteResponse")]
+        Client.ExecutionService.ExecutionResults CompileExecute(string programm);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/iExecitionService/Compile", ReplyAction="http://tempuri.org/iExecitionService/CompileResponse")]
-        System.Threading.Tasks.Task<Client.ExecutionService.ExecutionResults> CompileAsync(string programm);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/iExecitionService/CompileExecute", ReplyAction="http://tempuri.org/iExecitionService/CompileExecuteResponse")]
+        System.Threading.Tasks.Task<Client.ExecutionService.ExecutionResults> CompileExecuteAsync(string programm);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -176,12 +192,12 @@ namespace Client.ExecutionService {
                 base(binding, remoteAddress) {
         }
         
-        public Client.ExecutionService.ExecutionResults Compile(string programm) {
-            return base.Channel.Compile(programm);
+        public Client.ExecutionService.ExecutionResults CompileExecute(string programm) {
+            return base.Channel.CompileExecute(programm);
         }
         
-        public System.Threading.Tasks.Task<Client.ExecutionService.ExecutionResults> CompileAsync(string programm) {
-            return base.Channel.CompileAsync(programm);
+        public System.Threading.Tasks.Task<Client.ExecutionService.ExecutionResults> CompileExecuteAsync(string programm) {
+            return base.Channel.CompileExecuteAsync(programm);
         }
     }
 }

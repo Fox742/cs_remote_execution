@@ -16,7 +16,7 @@ namespace Server
             {
                 using (ServerDriver _server = new ServerDriver())
                 {
-                    Console.WriteLine("Сервер запущен");
+                    Console.WriteLine("Сервер запущен. Нажмите Enter, чтобы его остановить");
                     Console.ReadLine();
                 }
             }

@@ -11,6 +11,14 @@ namespace Server
     class Executor:Operator
     {
         private static string executionLogName = "ExecutionLog.log";
+        private int _returnCode = -1;
+        public int returnCode
+        {
+            get
+            {
+                return _returnCode;
+            }
+        }
 
         public Executor(string path, string exeName)
         {
@@ -20,6 +28,7 @@ namespace Server
             {
                 pd.execute();
                 _output = pd.standardOutput;
+                _returnCode = pd.returnCode;
             }
             // Записываем в compilation log логи компиляции
             File.WriteAllText(_fullPathDirectory + Settings.delimiter + executionLogName, _output);

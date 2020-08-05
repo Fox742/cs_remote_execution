@@ -13,7 +13,7 @@ namespace Server
     public interface iExecitionService
     {
             [OperationContract]
-            ExecutionResults Compile(string programm);
+            ExecutionResults CompileExecute(string programm);
     }
 
     [DataContract]
@@ -36,6 +36,10 @@ namespace Server
 
         [DataMember]
         public string SessionKey;
+
+        [DataMember]
+        public System.Exception exception;
+
     }
 
 }
