@@ -38,7 +38,10 @@ namespace Server
             try
             {
                 string sessionPath = FileSystemInspector.getSessionPath(_sessionKey);
+
+                // Запускаем компиляцию
                 Compiler _compiler = new Compiler(sessionPath, _program);
+                // Компиляция присланной программы выполняется в конструкторе класса Compiler, поэтому в этой точке мы уже можем получить информацию о том как прошла компиляция и вывод компилятора
                 _compilationOutput = _compiler.Output;
                 if (_compiler.Success)
                 {
@@ -47,6 +50,8 @@ namespace Server
 
                     // Исполнение
                     Executor _executor = new Executor(sessionPath, _compiler.name);
+                    // Выполнение программы также происходит в конструкторе класса Executor, 
+                    //    поэтому после отработки его конструктора мы уже можем получить информацию о том как прошло выполнение программы
                     _executionOutput = _executor.Output;
                     _returnCode = _executor.returnCode;
                     if (_executor.Success)
@@ -67,6 +72,7 @@ namespace Server
             }
             catch (System.Exception e)
             {
+                // Произошло исключение - мы должны записать его чтобы вернуть клиенту
                 Logger.WriteLine(DateTime.Now.ToString() + " " + _sessionKey + " Exception: "+e.ToString());
                 ServiceException = e;
                 return;
@@ -75,6 +81,9 @@ namespace Server
         }
     }
 
+    /// <summary>
+    /// Класс, реализующий логику сервиса
+    /// </summary>
     class ServiceEngine
     {
         private static BaseServiceEngine _instance = null;

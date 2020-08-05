@@ -8,14 +8,17 @@ using System.Diagnostics;
 
 namespace Server
 {
+    /// <summary>
+    /// Класс, осуществляющий компиляцию присланной клиентом программы и хранящий впоследствие информацию о компиляции
+    /// </summary>
     class Compiler:Operator
     {
-        private static string textOfProgrammName = "ClientProgramm.cs";
-        private static string exeName = "ClientProgramm.exe";
-        private static string compilationNameLog = "CompilationLog.log";
+        private static string textOfProgrammName = "ClientProgramm.cs"; // Имя файла, в который будет сохранен присланный текст программы
+        private static string exeName = "ClientProgramm.exe";           // Имя исполняемого файла, получаемого при компиляции
+        private static string compilationNameLog = "CompilationLog.log";// Имя файла, в который будет записан вывод компилятора при компиляции программы
         
-        private string _path;
-        private string _fullPath;
+        private string _path;       // Путь к директории, в которой будут сохранены все файлы (код и исполняемый файл, выводы   )
+        private string _fullPath;   // Путь к директории _path в форме абсолютного пути
 
         private string _name = string.Empty;
         

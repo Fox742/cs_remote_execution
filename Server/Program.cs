@@ -21,10 +21,11 @@ namespace Server
                     while (Console.ReadKey(true).Key != ConsoleKey.Escape)
                     {
                     }
+                    // Вышли из цикла - хотим выйти из программы. метод Dispose у службы выполняется долго - до нескольких секунд, поэтому пишем, что нужно подождать
                     Console.WriteLine("Пожалуйста, подождите, сервер завершает свою работу...");
                 }
             }
-            catch(System.Exception Exc)
+            catch(System.Exception Exc) // Перехватываем исключение о неисправности работы всей службы
             {
                 Logger.WriteLine("Получено исключение: " + Exc.Message);
             }

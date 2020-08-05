@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Server
 {
+    /// <summary>
+    /// Класс реализации WCF-службы.
+    /// </summary>
     class ExecutionService:iExecitionService
     {
         public ExecutionResults CompileExecute(string programm)

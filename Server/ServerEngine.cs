@@ -8,6 +8,7 @@ using System.ServiceModel.Description;
 
 namespace Server
 {
+    // Класс для управления сервером. Ответственный за запуск и остановку сервиса
     class ServerDriver:IDisposable
     {
         private ServiceHost serviceDriver = null;
@@ -15,8 +16,8 @@ namespace Server
         private void InitService()
         {
             serviceDriver = new ServiceHost(typeof(ExecutionService), new Uri(Settings.prefix + "://" + Settings.host + ":" + Settings.port + "/ExecutionService"));
+            
             // Включаем публикацию метадаты для нашей службы
-            // Check to see if the service host already has a ServiceMetadataBehavior
             ServiceMetadataBehavior smb = serviceDriver.Description.Behaviors.Find<ServiceMetadataBehavior>();
             // If not, add one
             if (smb == null)
