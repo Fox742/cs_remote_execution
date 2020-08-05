@@ -16,8 +16,12 @@ namespace Server
             {
                 using (ServerDriver _server = new ServerDriver())
                 {
-                    Console.WriteLine("Сервер запущен. Нажмите Enter, чтобы его остановить");
-                    Console.ReadLine();
+                    Console.WriteLine("Сервер запущен. Нажмите клавишу Escape, чтобы его остановить");
+                    Logger.whereIsLog();
+                    while (Console.ReadKey(true).Key != ConsoleKey.Escape)
+                    {
+                    }
+                    Console.WriteLine("Пожалуйста, подождите, сервер завершает свою работу...");
                 }
             }
             catch(System.Exception Exc)

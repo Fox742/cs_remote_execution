@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Server
 {
@@ -20,6 +21,11 @@ namespace Server
             {
 
             }
+
+            public virtual string whereIsLog()
+            {
+                return "Лог не пишется";
+            }
         }
 
         private class ConsoleLogger : LoggerBase
@@ -33,13 +39,48 @@ namespace Server
             {
                 Console.WriteLine(whatToPrint);
             }
+
+            public override string whereIsLog()
+            {
+                return "Лог пишется в консоль";
+            }
+
+        }
+
+        private class FileLogger : LoggerBase
+        {
+            
+            private string logFilename = "ServerLog.txt";
+            private string fullLogfilename;
+
+            public FileLogger()
+            {
+                string path = Settings.rootPath;
+                DirectoryInfo DI = new DirectoryInfo(path);
+                fullLogfilename = DI.FullName + Settings.delimiter + logFilename;
+
+            }
+
+            public override void WriteLine(string whatToPrint)
+            {
+                using (StreamWriter sw = File.AppendText(fullLogfilename))
+                {
+                    sw.WriteLine(whatToPrint);
+                }
+            }
+
+            public override string whereIsLog()
+            {
+                return "Лог пишется в файл: "+fullLogfilename;
+            }
+
         }
 
         private static LoggerBase _loggerInstance = null;
 
         static Logger()
         {
-            _loggerInstance = new ConsoleLogger();
+            _loggerInstance = new FileLogger();
         }
 
         public static void Clear()
@@ -50,6 +91,11 @@ namespace Server
         public static void WriteLine(string whatToPrint)
         {
             _loggerInstance.WriteLine(whatToPrint);
+        }
+
+        public static void whereIsLog()
+        {
+            Console.WriteLine(_loggerInstance.whereIsLog());
         }
 
     }
