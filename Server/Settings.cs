@@ -3,21 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace Server
 {
+    /// <summary>
+    /// Класс, обеспечивающий предоставление настроек и констант работает с ConfigurationManager-ом
+    /// </summary>
     class Settings
     {
         public static string delimiter
         {
-            get { return "/"; }
+            get { return ConfigurationManager.AppSettings["delimiter"]; }
         }
 
         public static string host
         {
             get
             {
-                return "localhost";
+                return ConfigurationManager.AppSettings["host"];
             }
         }
 
@@ -25,7 +29,7 @@ namespace Server
         {
             get
             {
-                return "8000";
+                return ConfigurationManager.AppSettings["port"];
             }
         }
         
@@ -33,7 +37,7 @@ namespace Server
         {
             get
             {
-                return "http";
+                return ConfigurationManager.AppSettings["prefix"];
             }
         }
 
@@ -41,7 +45,7 @@ namespace Server
         {
             get
             {
-                return "."+ delimiter +"execution_filesystem";
+                return "."+ delimiter + ConfigurationManager.AppSettings["rootFolder"];
             }
         }
 
@@ -49,7 +53,7 @@ namespace Server
         {
             get
             {
-                return rootPath+  delimiter + "sessions";
+                return rootPath+  delimiter +ConfigurationManager.AppSettings["executionFolder"];
             }
         }
 
@@ -57,10 +61,8 @@ namespace Server
         {
             get
             {
-                return "C:\\WINDOWS\\Microsoft.NET\\Framework64\\v4.0.30319\\CSC.EXE";
+                return ConfigurationManager.AppSettings["compilerPath"];
             }
         }
-
-
     }
 }

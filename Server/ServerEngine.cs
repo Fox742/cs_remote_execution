@@ -15,7 +15,8 @@ namespace Server
 
         private void InitService()
         {
-            serviceDriver = new ServiceHost(typeof(ExecutionService), new Uri(Settings.prefix + "://" + Settings.host + ":" + Settings.port + "/ExecutionService"));
+            string URL = Settings.prefix + "://" + Settings.host + ":" + Settings.port + "/ExecutionService";
+            serviceDriver = new ServiceHost(typeof(ExecutionService), new Uri(URL));
             
             // Включаем публикацию метадаты для нашей службы
             ServiceMetadataBehavior smb = serviceDriver.Description.Behaviors.Find<ServiceMetadataBehavior>();

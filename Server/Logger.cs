@@ -56,8 +56,7 @@ namespace Server
             public FileLogger()
             {
                 string path = Settings.rootPath;
-                DirectoryInfo DI = new DirectoryInfo(path);
-                fullLogfilename = DI.FullName + Settings.delimiter + logFilename;
+                fullLogfilename = FileSystemInspector.getFullPathDirectory(path) + Settings.delimiter + logFilename;
 
             }
 

@@ -27,7 +27,7 @@ namespace Server
             }
             catch(System.Exception Exc) // Перехватываем исключение о неисправности работы всей службы
             {
-                Logger.WriteLine("Получено исключение: " + Exc.Message);
+                Console.WriteLine("Получено исключение: " + Exc.Message);
             }
             Console.WriteLine("Работа сервера завершена. Нажмите Enter чтобы закрыть приложение");
             Console.ReadLine();
