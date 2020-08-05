@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Client
 {
+    /// <summary>
+    /// Реализация класса-обёртки интерфейса для WindowsForms
+    /// </summary>
     class WinFormsUIWrapper:BaseUIWrapper
     {
         public WinFormsUIWrapper(Form1 winFormsInterface):base(winFormsInterface)

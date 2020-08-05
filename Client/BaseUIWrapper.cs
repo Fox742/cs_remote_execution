@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Client
 {
+    /// <summary>
+    /// Класс-обёртка интерфейса для вывода результатов работы программы (данных, которые возвращает служба)
+    /// </summary>
     abstract class  BaseUIWrapper
     {
         protected object _interface;

@@ -8,6 +8,10 @@ using System.ServiceModel.Description;
 
 namespace Client
 {
+    /// <summary>
+    /// Класс-обёртка для сервиса, чтобы основной код не работал с сигнатурами и структурами сервиса, которые могут меняться
+    /// В конструкторе вызывает метод службы и сохраняет результат в своих полях
+    /// </summary>
     class CompileExecuteResult
     {
 
